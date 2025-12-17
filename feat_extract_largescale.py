@@ -94,7 +94,7 @@ for split, in_loader in [('train', trainloaderIn), ('val', testloaderIn),]:
                 end_ind = min((batch_idx + 1) * batch_size, len(in_loader.dataset))
 
                 score, feature_list = net.feature_list(inputs)
-                if args.arch in ['R50' 'MNet']:
+                if args.arch in ['R50','MNet']:
                     out = F.adaptive_avg_pool2d(feature_list[-1],(1,1))
                     out = torch.flatten(out, 1)
                 elif args.arch == 'ViT':
@@ -117,7 +117,7 @@ if FORCE_RUN or not os.path.exists(cache_name):
             end_ind = min((batch_idx + 1) * batch_size, len(out_loader.dataset))
 
             score, feature_list = net.feature_list(inputs)
-            if args.arch in ['R50' 'MNet']:
+            if args.arch in ['R50','MNet']:
                 out = F.adaptive_avg_pool2d(feature_list[-1],(1,1))
                 out = torch.flatten(out, 1)
             elif args.arch == 'ViT':
