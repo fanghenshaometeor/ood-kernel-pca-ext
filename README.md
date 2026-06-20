@@ -8,13 +8,11 @@ If our work benefits your researches, welcome to cite!
 @inproceedings{fang2024kpcaood,
 author = {Fang, Kun and Tao, Qinghua and Lv, Kexin and He, Mingzhen and Huang, Xiaolin and YANG, JIE},
 booktitle = {Advances in Neural Information Processing Systems},
-editor = {A. Globerson and L. Mackey and D. Belgrave and A. Fan and U. Paquet and J. Tomczak and C. Zhang},
 pages = {134317--134344},
-publisher = {Curran Associates, Inc.},
 title = {Kernel PCA for Out-of-Distribution Detection},
-url = {https://proceedings.neurips.cc/paper_files/paper/2024/file/f2543511e5f4d4764857f9ad833a977d-Paper-Conference.pdf},
 volume = {37},
 year = {2024}
+}
 }
 ```
 
