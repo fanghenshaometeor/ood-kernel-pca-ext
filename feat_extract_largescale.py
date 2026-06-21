@@ -16,7 +16,7 @@ import torch.nn.functional as F
 import time
 
 # ======== fix data type ========
-torch.set_default_tensor_type(torch.FloatTensor)
+# torch.set_default_tensor_type(torch.FloatTensor)
 
 # ======== options ==============
 parser = argparse.ArgumentParser(description='Extracting Features')
@@ -24,7 +24,6 @@ parser = argparse.ArgumentParser(description='Extracting Features')
 parser.add_argument('--data_dir',type=str,default='./data/',help='data directory')
 parser.add_argument('--logs_dir',type=str,default='./logs/',help='logs directory')
 parser.add_argument('--cache_dir',type=str,default='./cache/',help='logs directory')
-parser.add_argument('--dataset',type=str,default='CIFAR10',help='data set name')
 parser.add_argument('--model_path',type=str,default=None,help='saved model path')
 parser.add_argument('--supcon',action='store_true',help='extract features from supcon models')
 # -------- hyper param. --------
@@ -41,11 +40,10 @@ parser.add_argument('--out_datadir', type=str, help='out data dir')
 args = parser.parse_args()
 
 # ======== log writer init. ========
-args.dataset = args.in_data
 cache_folder = 'supcon' if args.supcon else 'ce'
-if not os.path.exists(os.path.join(args.cache_dir,args.dataset,args.arch,cache_folder)):
-    os.makedirs(os.path.join(args.cache_dir,args.dataset,args.arch,cache_folder))
-args.cache_path = os.path.join(args.cache_dir,args.dataset,args.arch,cache_folder)
+if not os.path.exists(os.path.join(args.cache_dir,args.in_data,args.arch,cache_folder)):
+    os.makedirs(os.path.join(args.cache_dir,args.in_data,args.arch,cache_folder))
+args.cache_path = os.path.join(args.cache_dir,args.in_data,args.arch,cache_folder)
 
 setup_seed(args.seed)
 

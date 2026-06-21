@@ -23,14 +23,13 @@ from utils_ood import make_id_ood
 
 
 # ======== fix data type ========
-torch.set_default_tensor_type(torch.FloatTensor)
+# torch.set_default_tensor_type(torch.FloatTensor)
 
 # ======== options ==============
 parser = argparse.ArgumentParser(description='Evaluation Energy on training samples')
 # -------- file param. --------------
 parser.add_argument('--data_dir',type=str,default='./data/CIFAR10/',help='data directory')
 parser.add_argument('--logs_dir',type=str,default='./logs/',help='logs directory')
-parser.add_argument('--dataset',type=str,default='CIFAR10',help='data set name')
 parser.add_argument('--model_path',type=str,default=None,help='saved model path')
 parser.add_argument('--supcon',action='store_true',help='extract features from supcon models')
 # -------- hyper param. --------
@@ -51,11 +50,10 @@ parser.add_argument('--threshold_react', default=1, type=float, help='threshold 
 args = parser.parse_args()
 
 # ======== log writer init. ========
-args.dataset = args.in_data
 log_file='supcon-%s'%args.score if args.supcon else 'ce-%s'%args.score
-if not os.path.exists(os.path.join(args.logs_dir,args.dataset,args.arch,'eval')):
-    os.makedirs(os.path.join(args.logs_dir,args.dataset,args.arch,'eval'))
-args.logs_path = os.path.join(args.logs_dir,args.dataset,args.arch,'eval',log_file+'-train.log')
+if not os.path.exists(os.path.join(args.logs_dir,args.in_data,args.arch,'eval')):
+    os.makedirs(os.path.join(args.logs_dir,args.in_data,args.arch,'eval'))
+args.logs_path = os.path.join(args.logs_dir,args.in_data,args.arch,'eval',log_file+'-train.log')
 sys.stdout = Logger(filename=args.logs_path,stream=sys.stdout)
 
 # -------- main function
@@ -94,7 +92,7 @@ def main():
     energy_score, acc_train = val(net, in_loader_train)
     energy_file = 'supcon-%s-train'%args.score if args.supcon else 'ce-%s-train'%args.score
     duration = time.time() - start_time
-    np.save(os.path.join(args.logs_dir,args.dataset,args.arch,'eval',energy_file), energy_score)
+    np.save(os.path.join(args.logs_dir,args.in_data,args.arch,'eval',energy_file), energy_score)
 
 
     print("Finished. Total running time: {}".format(duration))

@@ -22,7 +22,6 @@ parser = argparse.ArgumentParser(description="Kernel PCA for OoD Detection")
 parser.add_argument('--data_dir',type=str,default='./data/',help='data directory')
 parser.add_argument('--logs_dir',type=str,default='./logs/',help='logs directory')
 parser.add_argument('--cache_dir',type=str,default='./cache/',help='logs directory')
-parser.add_argument('--dataset',type=str,default='CIFAR10',help='data set name')
 parser.add_argument('--model_path',type=str,default='./save/',help='saved model path')
 # -------- hyper param. --------
 parser.add_argument('--arch',type=str,default='vgg16',help='model architecture')
@@ -44,12 +43,11 @@ parser.add_argument('--gamma', type=float, help='variance of the gaussian kernel
 parser.add_argument('--M', type=int, help='mapped dimension of RFFs, or, num. of landmarks in Nystrom')
 args = parser.parse_args()
 
-args.dataset = args.in_data
 cache_folder = 'supcon' if args.supcon else 'ce'
-args.cache_path = os.path.join(args.cache_dir,args.dataset,args.arch,cache_folder)
-if not os.path.exists(os.path.join(args.logs_dir,args.dataset,args.arch,'detection')):
-    os.makedirs(os.path.join(args.logs_dir,args.dataset,args.arch,'detection'))
-args.logs_path = os.path.join(args.logs_dir,args.dataset,args.arch,'detection',"{}-{}-ood.log".format(cache_folder,args.approx))
+args.cache_path = os.path.join(args.cache_dir,args.in_data,args.arch,cache_folder)
+if not os.path.exists(os.path.join(args.logs_dir,args.in_data,args.arch,'detection')):
+    os.makedirs(os.path.join(args.logs_dir,args.in_data,args.arch,'detection'))
+args.logs_path = os.path.join(args.logs_dir,args.in_data,args.arch,'detection',"{}-{}-ood.log".format(cache_folder,args.approx))
 sys.stdout = Logger(filename=args.logs_path,stream=sys.stdout)
 
 setup_seed(args.seed)
@@ -114,7 +112,7 @@ if args.approx == 'RFF':
     print("gamma = %f, M = %d"%(gamma, M))
 elif args.approx == 'NYS':
     # ---- load energy scores of training samples
-    energy_training = np.load(os.path.join(args.logs_dir,args.dataset,args.arch,'eval',"supcon-Energy-train.npy" if args.supcon else "ce-Energy-train.npy"))
+    energy_training = np.load(os.path.join(args.logs_dir,args.in_data,args.arch,'eval',"supcon-Energy-train.npy" if args.supcon else "ce-Energy-train.npy"))
     # ---- select #ldmk with the smallest-M largest energy scores as the landmark points for Nystrom method
     largest_ind = np.argsort(energy_training)[:args.M]
     # ---- obtain the low-rank approximation mapping of Nystrom
@@ -186,6 +184,6 @@ print("The program ends...")
 print("-------- -------- --------")
 print()
 
-score_path = os.path.join(args.logs_dir,args.dataset,args.arch,'detection',"{}-{}-score.npy".format(cache_folder,args.approx))
+score_path = os.path.join(args.logs_dir,args.in_data,args.arch,'detection',"{}-{}-score.npy".format(cache_folder,args.approx))
 np.save(score_path, all_scores)
 print("Scores saved at: ", score_path)

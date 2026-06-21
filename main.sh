@@ -15,7 +15,7 @@ python main.py \
 
 python main.py \
  --arch ViT --in_data ImageNet --out_datasets iNaturalist SUN Places Texture \
- --approx RFF --gamma 0.1 --M 2048 --exp_var_ratio 0.9 # Nystrom, standard training
+ --approx RFF --gamma 0.1 --M 2048 --exp_var_ratio 0.9 # random Fourier features, standard training
 
 # ======== ======== ======== ======== ======== ======
 # ======== R50, supervised contrast learning ========
@@ -33,7 +33,7 @@ python main.py \
 # ======== ======== ======== ======== ======== ======== ======== =======
 CUDA_VISIBLE_DEVICES=0 python main_fuse.py \
  --arch R50 --in_data ImageNet --out_datasets iNaturalist SUN Places Texture \
- --approx NYS --gamma 0.6 --M 2048 --exp_var_ratio 0.99 # nystrom, standard training
+ --approx NYS --gamma 0.6 --M 2048 --exp_var_ratio 0.99 # Nystrom, standard training
 
 CUDA_VISIBLE_DEVICES=0 python main_fuse.py \
  --arch R50 --in_data ImageNet --out_datasets iNaturalist SUN Places Texture \
@@ -41,7 +41,7 @@ CUDA_VISIBLE_DEVICES=0 python main_fuse.py \
 
 CUDA_VISIBLE_DEVICES=0 python main_fuse.py \
  --arch MNet --in_data ImageNet --out_datasets iNaturalist SUN Places Texture \
- --approx NYS --gamma 0.2 --M 2560 --exp_var_ratio 0.996 # nystrom, standard training
+ --approx NYS --gamma 0.2 --M 2560 --exp_var_ratio 0.996 # Nystrom, standard training
 
 CUDA_VISIBLE_DEVICES=0 python main_fuse.py \
  --arch MNet --in_data ImageNet --out_datasets iNaturalist SUN Places Texture \

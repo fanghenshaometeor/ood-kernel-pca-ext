@@ -1,5 +1,5 @@
-# -------- extract features from imagenet-r50/mnet 
-# ---- pre-trained (r50,mnet) and supervised contrastive learning (r50)
+# -------- extract features from imagenet-r50/mnet/vit 
+# ---- pre-trained (r50,mnet,vit) and supervised contrastive learning (r50)
 for out_data in iNaturalist SUN Places Texture
 do
 

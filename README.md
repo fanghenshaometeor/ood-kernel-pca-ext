@@ -1,21 +1,9 @@
-# Kernel PCA for Out-of-Distribution Detection: Non-Linear Kernel Selections and Approximations
-This is the official PyTorch implementation of the paper: *Kernel PCA for Out-of-Distribution Detection: Non-Linear Kernel Selections and Approximations* ([arxiv](https://arxiv.org/abs/2505.15284)).
+# Kernel PCA for Out-of-Distribution Detection: Non-Linear Kernel Selection and Approximation
+This is the official PyTorch implementation of the TPAMI'26 paper: *Kernel PCA for Out-of-Distribution Detection: Non-Linear Kernel Selection and Approximation* ([journal](https://doi.org/10.1109/TPAMI.2026.3705778), [arxiv](https://arxiv.org/abs/2505.15284)).
 
 This is an **extension study** of our previous work accepted by NeurIPS'24: *Kernel PCA for Out-of-Distribution Detection* ([conference](https://proceedings.neurips.cc/paper_files/paper/2024/hash/f2543511e5f4d4764857f9ad833a977d-Abstract-Conference.html), [arxiv](https://arxiv.org/abs/2402.02949), [code](https://github.com/fanghenshaometeor/ood-kernel-pca)).
 
 If our work benefits your researches, welcome to cite!
-```
-@inproceedings{fang2024kpcaood,
-author = {Fang, Kun and Tao, Qinghua and Lv, Kexin and He, Mingzhen and Huang, Xiaolin and YANG, JIE},
-booktitle = {Advances in Neural Information Processing Systems},
-pages = {134317--134344},
-title = {Kernel PCA for Out-of-Distribution Detection},
-volume = {37},
-year = {2024}
-}
-}
-```
-
 ```
 @misc{fang2025kpcaood,
 title = {Kernel PCA for Out-of-Distribution Detection: Non-Linear Kernel Selections and Approximations}, 
@@ -27,7 +15,16 @@ primaryClass = {cs.LG},
 url = {https://arxiv.org/abs/2505.15284}, 
 }
 ```
-
+```
+@inproceedings{fang2024kpcaood,
+author = {Fang, Kun and Tao, Qinghua and Lv, Kexin and He, Mingzhen and Huang, Xiaolin and YANG, JIE},
+booktitle = {Advances in Neural Information Processing Systems},
+pages = {134317--134344},
+title = {Kernel PCA for Out-of-Distribution Detection},
+volume = {37},
+year = {2024}
+}
+```
 ## KPCA for OoD detection in a nutshell
 
 The InD-OoD disparities are exploited through a fresh perspective of *non-linear feature subspace* in this work.
@@ -46,11 +43,9 @@ Our study presents new insights into the non-linear feature subspace for OoD det
 <a href="pics/fig_kpca_framework.png"><div align="center"><img src="pics/fig_kpca_framework.png"></div></a>
 
 ### Main differences of this extension study from its [conference version]((https://proceedings.neurips.cc/paper_files/paper/2024/hash/f2543511e5f4d4764857f9ad833a977d-Abstract-Conference.html)) [1]:
-- We supplement more analyses and experiments to support the non-linear kernel selection for OoD detection in Section III.
-- A data-dependent Nystr&ouml;m method is employed to build an explicit approximated mapping in Section IV-B, where the sampling strategy in Nystr&ouml;m is intentionally devised based on InD data confidence.
-Such a modified data-dependent approximation leads to more discriminative InD and OoD representations and outperforms the data-independent way in [1] with enhanced OoD detection performance and a cheaper computational complexity.
-- We supplement a numerical analysis in Section IV-D on the approximation performance of our method in terms of KPCA reconstruction errors on InD and OoD data within this deep learning regime for a comprehensive investigation.
-- More experiments are provided in Section V, including comparisons with a broader variety of strong baselines and in-depth analyses on our KPCA detection method to validate its effectiveness.
+- We identify two distinct non-linear patterns essential for InD-OoD separability in Section III. These two properties not only serve as principled justifications for the Cosine-Gaussian kernel proposed in [1], but also provide crucial design guidelines for selecting and understanding kernel representations specific to differentiate InD and OoD.
+- We incorporate a data-dependent Nystr&ouml;m approximation technique with a low-Energy sampling scheme specialized for the OoD detection task in Section IV-B, yielding superior detection performance and reduced computational costs (Sec.IV-C). Together with the data-independent RFFs in [1], this work presents systematic explorations on efficient kernel approximation particularly tailored for OoD detection. Numerical approximation analyzes are provided in Section IV-D.
+- We further explore a parametric realization of our KPCA OoD detection framework, as an extension of the non-parametric Cosine-Gaussian kernel in [1]. This parametric learning paradigm supports learnable representations by optimizing kernel hyper-parameters and training neural networks with varied objectives, moving beyond fixed feature projections, as in Section IV-E and Appendix C. These primary and yet valuable explorations address the limitation noted in [35] by showcasing data-driven kernel optimization for future work, and also further validate the flexibility of our framework.
 
 ## Pre-requisite
 Prepare in-distribution and out-distribution data sets following the instructions in the [KNN repo](https://github.com/deeplearning-wisc/knn-ood).
@@ -71,17 +66,17 @@ ood-kpca-extension
 *The supervised contrast learning R50 checkpoint released in the [KNN repo](https://github.com/deeplearning-wisc/knn-ood) only contains backbone weights and misses the last linear layer. We further fine-tune the linear layer on top of the backbone weights following the suggestions in the [supcontrast repo](https://github.com/HobbitLong/SupContrast). Our trained checkpoint is released [here](https://drive.google.com/drive/folders/1-ISbfuEqMZnLpnSud6v2GSl2SNjSiXTJ?usp=sharing).*
 
 ## Running
-step.1. Run the `feat_extract_largescale.sh` to extract the penultimate layer features.
+Step.1. Run the `feat_extract_largescale.sh` to extract the penultimate layer features.
 ```
 bash feat_extract_largescale.sh
 ```
 
-step.2. Run the `energy_training.sh` to compute the Energy values of the training samples for Nystr&ouml;m sampling.
+Step.2. Run the `energy_training.sh` to compute the Energy values of the training samples for Nystr&ouml;m sampling.
 ```
 bash energy_training.sh
 ```
 
-step.3. Run the `main.sh` to perform KPCA OoD detection via RFFs and Nystr&ouml;m.
+Step.3. Run the `main.sh` to perform KPCA OoD detection via RFFs and Nystr&ouml;m.
 ```
 bash main.sh
 ```

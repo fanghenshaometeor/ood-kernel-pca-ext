@@ -16,7 +16,7 @@ CUDA_VISIBLE_DEVICES=1 python energy_training.py \
 
 arch=R50
 score=ReAct
-CUDA_VISIBLE_DEVICES=0 python energy_training.py \
+CUDA_VISIBLE_DEVICES=1 python energy_training.py \
  --arch ${arch} --score ${score} --in_data ImageNet --out_data iNaturalist
 
 arch=MNet

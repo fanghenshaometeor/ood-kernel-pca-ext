@@ -14,12 +14,12 @@ import os
 def make_id_ood(args):
     """Returns train and validation datasets."""
     if args.in_data == 'ImageNet':
-        args.in_datadir = '~/imagenet/val'
-        args.in_datadir_train = '~/imagenet/train'
+        args.in_datadir = '/path/to/imagenet/val'
+        args.in_datadir_train = '/path/to/imagenet/train'
         if args.out_data == 'iNaturalist' or args.out_data == 'SUN' or args.out_data == 'Places':
-            args.out_datadir = "~/fangkun/data/ood_data/{}".format(args.out_data)
+            args.out_datadir = "/path/to/ood_data/{}".format(args.out_data)
         elif args.out_data == 'Texture':
-            args.out_datadir = '~/fangkun/data/ood_data/dtd/images'
+            args.out_datadir = '/path/to/ood_data/dtd/images'
 
         if args.arch == 'ViT':
             test_transform = transforms.Compose([
