@@ -3,25 +3,28 @@ This is the official PyTorch implementation of the TPAMI'26 paper: *Kernel PCA f
 
 This is an **extension study** of our previous work accepted by NeurIPS'24: *Kernel PCA for Out-of-Distribution Detection* ([conference](https://proceedings.neurips.cc/paper_files/paper/2024/hash/f2543511e5f4d4764857f9ad833a977d-Abstract-Conference.html), [arxiv](https://arxiv.org/abs/2402.02949), [code](https://github.com/fanghenshaometeor/ood-kernel-pca)).
 
-If our work benefits your researches, welcome to cite!
+If our work is helpful to your research, **please cite both this article and its conference version**! Thank you very much!
 ```
-@ARTICLE{11573215,
+@ARTICLE{kpcaood2026,
 author={Fang, Kun and Tao, Qinghua and He, Mingzhen and Lv, Kexin and Yang, Runze and Hu, Haibo and Huang, Xiaolin and Yang, Jie and Cao, Longbing},
 journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
 title={Kernel PCA for Out-of-Distribution Detection: Non-Linear Kernel Selection and Approximation}, 
 year={2026},
-pages={1-16},
+volume={48},
+number={10},
+pages={13220-13235},
 doi={10.1109/TPAMI.2026.3705778}
 }
 ```
 ```
-@inproceedings{fang2024kpcaood,
-author = {Fang, Kun and Tao, Qinghua and Lv, Kexin and He, Mingzhen and Huang, Xiaolin and YANG, JIE},
-booktitle = {Advances in Neural Information Processing Systems},
-pages = {134317--134344},
-title = {Kernel PCA for Out-of-Distribution Detection},
-volume = {37},
-year = {2024}
+@inproceedings{kpcaood2024,
+author={Fang, Kun and Tao, Qinghua and Lv, Kexin and He, Mingzhen and Huang, Xiaolin and YANG, JIE},
+booktitle={Advances in Neural Information Processing Systems},
+pages={134317--134344},
+title={Kernel PCA for Out-of-Distribution Detection},
+volume={37},
+year={2024},
+doi={10.52202/079017-4268}
 }
 ```
 ## KPCA for OoD detection in a nutshell
